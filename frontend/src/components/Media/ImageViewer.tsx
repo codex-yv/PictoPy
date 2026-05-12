@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import React, { useRef, useImperativeHandle, forwardRef } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { ImageOff } from 'lucide-react';
+=======
+import { useRef, useImperativeHandle, forwardRef } from 'react';
+import { ZoomableImage, ZoomableImageRef } from './ZoomableImage';
+>>>>>>> 4c4252848a8ddf109ad1af1add2764073e274488
 
 interface ImageViewerProps {
   imagePath: string;
@@ -18,6 +23,7 @@ export interface ImageViewerRef {
 
 export const ImageViewer = forwardRef<ImageViewerRef, ImageViewerProps>(
   ({ imagePath, alt, rotation, resetSignal }, ref) => {
+<<<<<<< HEAD
     const transformRef = useRef<any>(null);
     const [hasError, setHasError] = React.useState(false);
 
@@ -25,20 +31,18 @@ export const ImageViewer = forwardRef<ImageViewerRef, ImageViewerProps>(
     React.useEffect(() => {
       setHasError(false);
     }, [imagePath]);
+=======
+    const zoomableImageRef = useRef<ZoomableImageRef>(null);
+>>>>>>> 4c4252848a8ddf109ad1af1add2764073e274488
 
-    // Expose zoom functions to parent
     useImperativeHandle(ref, () => ({
-      zoomIn: () => transformRef.current?.zoomIn(),
-      zoomOut: () => transformRef.current?.zoomOut(),
-      reset: () => transformRef.current?.resetTransform(),
+      zoomIn: () => zoomableImageRef.current?.zoomIn(),
+      zoomOut: () => zoomableImageRef.current?.zoomOut(),
+      reset: () => zoomableImageRef.current?.reset(),
     }));
 
-    // Reset on signal change
-    React.useEffect(() => {
-      transformRef.current?.resetTransform();
-    }, [resetSignal]);
-
     return (
+<<<<<<< HEAD
       <TransformWrapper
         ref={transformRef}
         initialScale={1}
@@ -88,6 +92,15 @@ export const ImageViewer = forwardRef<ImageViewerRef, ImageViewerProps>(
           )}
         </TransformComponent>
       </TransformWrapper>
+=======
+      <ZoomableImage
+        ref={zoomableImageRef}
+        imagePath={imagePath}
+        alt={alt}
+        rotation={rotation}
+        resetSignal={resetSignal}
+      />
+>>>>>>> 4c4252848a8ddf109ad1af1add2764073e274488
     );
   },
 );
